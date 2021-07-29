@@ -137,5 +137,55 @@ var connection = mysql.createConnection({
       }
 
 
+  function addEmployee(){
+    console.log(" ");
+   
+    inquirer
+    .prompt([
+      {
+      name:"first_name",
+      type: "input",
+      message: "What is the employee's first name?"
+    }, 
+    {
+      name:"last_name",
+      type: "input",
+      message: "What is the employee's last name?"
+    }, 
+    {
+      name:"role",
+      type: "input",
+      message: "What is the id of the employee's role?"
+    },
+    {
+      name:"manager",
+      type: "input",
+      message: "What is the employee id of the employee's manager?"
+    },
+  ])
+  .then(function(response){
+   
+    var query = "INSERT INTO employee SET ?" 
+    
+    
+    var employee = {
+      first_name: response.first_name, 
+      last_name: response.last_name, 
+      role_id: response.role, 
+      manager_id: response.manager 
+    }
+    
+    connection.query(query, employee, function(err, res) {
+      if (err) throw err;
+        console.log(" ");
+        console.log("Employee added!")
+        console.log(" ");
+        
+      allEmployees(); 
+    })  
+  })
+}
+
+
 
     
