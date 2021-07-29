@@ -186,6 +186,50 @@ var connection = mysql.createConnection({
   })
 }
 
+function addRole (){
+    console.log(" ");
+    
+    inquirer
+    .prompt([
+      {
+      name:"role_title",
+      type: "input",
+      message: "What is name of the role to be added?"
+    }, 
+    {
+      name:"salary",
+      type: "input",
+      message: "What is the salary for the new role?"
+    }, 
+    {
+      name:"deptId",
+      type: "input",
+      message: "What is the department id to which this new role belongs?"
+    }, 
+  ])
+  .then(function(response){
+    
+    var query = "INSERT INTO roles SET ?" 
+    
+    
+    var role = {
+      title: response.role_title, 
+      salary: response.salary, 
+      department_id: response.deptId, 
+      
+    }
+    
+    connection.query(query, role, function(err, res) {
+      if (err) throw err;
+        console.log(" ");
+        console.log("New role added!"); 
+        console.log(" "); 
+        
+      allRoles(); 
+    })  
+  })
+  }
+  
 
 
     
