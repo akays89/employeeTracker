@@ -315,4 +315,46 @@ function updateEmployee(){
     })
     
   }
+
+
+  function deleteEmployee() {
+  console.log(" ");
+  var query = 'SELECT * from employee' 
+  
+  
+  connection.query(query, function(err, res) {
+    if (err) throw err; 
+
+
+    var choices = res.map(employee => employee.first_name + ' ' + employee.last_name +' ' + employee.id); 
+
+    inquirer
+    .prompt([
+      {
+      name:"name",
+      type: "rawlist",
+      message: "Which employee would you like to remove?",
+      choices: choices
+    }
+  ])
+  .then(function(response) {
     
+    var employeeChoiceArr = response.name.split(' ');
+    
+    var employeeId = employeeChoiceArr[employeeChoiceArr.length-1];
+    
+    var query = "DELETE FROM employee WHERE employee.id=?" 
+
+    
+    connection.query(query, [employeeId], function(err, res) {
+    if (err) throw err; 
+    console.log(" ");
+    console.log("Employee successfully removed!");
+    console.log(" ");
+    
+    allEmployees();
+    
+    })
+  })
+})
+}  
