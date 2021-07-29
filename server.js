@@ -44,7 +44,61 @@ var connection = mysql.createConnection({
                   "Delete a department",
                   "Exit"]
       })
+
+      .then(function(answer) {
+          switch (answer.actions){
+            case "View all employees":
+                return allEmployees();
+                break;
+
+            case "View all roles":
+                return allRoles();
+                break;
+
+            case "View all departments":
+                return allDepartments();
+                break;
+
+            case "Add an employee":
+                return addEmployee();
+                break;
+
+            case "Add a role":
+                return addRole();
+                break;
+
+            case "Add a department":
+                return addDepartment();
+                break;
+
+            case "Update an employee's role":
+                return updateEmployee();
+                break;
+
+            case "Delete an employee":
+                return deleteEmployee();
+                break;
+
+            case "Delete a role":
+                return deleteRole();
+                break;
+
+            case "Delete a department":
+                return deleteDepartment();
+                break;
+            
+            case "Exit":
+                return exitApp();
+                break;
+
+            }
+        });
     }
+        
+
+
+
+
 
 
     
