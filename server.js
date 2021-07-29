@@ -398,3 +398,44 @@ function deleteRole(){
     })
     })
   }
+
+  function deleteDepartment(){
+    console.log(" ");
+  
+    
+    var query ='SELECT * FROM department'
+  
+    
+    connection.query(query, function(err, res) {
+      if (err) throw err;
+  
+      var choices = res.map(department => department.name); 
+  
+      
+      inquirer
+      .prompt([
+        {
+        name:"name",
+        type: "rawlist",
+        message: "Which department would you like to remove?",
+        choices: choices
+      }
+    ])
+    .then(function(response) {
+      
+      var deptChoice = response.name;
+      
+      var query = "DELETE FROM department WHERE department.name=?" 
+  
+      
+      connection.query(query, deptChoice, function(err, res) {
+      if (err) throw err; 
+      console.log(" ");
+      console.log("Department successfully removed!");
+      console.log(" ");
+      
+      allDepartments();
+      })
+    })
+    })
+  }
