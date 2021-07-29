@@ -439,3 +439,10 @@ function deleteRole(){
     })
     })
   }
+
+  function exitApp(){
+    console.log(" ");
+    console.log("Thank you for using the Employee Tracking app! See you again soon!");
+    console.log(" ");
+    connection.end();
+}
