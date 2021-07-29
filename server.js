@@ -357,4 +357,44 @@ function updateEmployee(){
     })
   })
 })
-}  
+} 
+
+function deleteRole(){
+    console.log(" ");
+    
+    var query ='SELECT * FROM roles'
+  
+    connection.query(query, function(err, res) {
+      if (err) throw err;
+  
+      var choices = res.map(roles => roles.title); 
+  
+      
+      inquirer
+      .prompt([
+        {
+        name:"name",
+        type: "rawlist",
+        message: "Which role would you like to remove?",
+        choices: choices
+      }
+    ])
+    .then(function(response) {
+  
+      var roleChoice = response.name;
+      
+      var query = "DELETE FROM roles WHERE roles.title = ?;" 
+  
+      
+      connection.query(query, roleChoice, function(err, res) {
+      if (err) throw err; 
+      console.log(" ");
+      console.log("Role successfully removed!");
+      console.log(" ");
+      
+      allRoles();
+      
+      })
+    })
+    })
+  }
