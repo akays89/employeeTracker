@@ -14,3 +14,16 @@ var connection = mysql.createConnection({
 
     database: "employees_db"
 });
+
+
+ connection.connect(function(err) {
+    if (err) throw err;
+    console.log("connected as id " + connection.threadId + "\n");
+    console.log("Welcome to the Employee Tracking App..."); 
+
+   
+  });
+
+
+
+    
