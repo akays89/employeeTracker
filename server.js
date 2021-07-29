@@ -262,5 +262,57 @@ function addRole (){
   }
   
 
-
+function updateEmployee(){
+    console.log(" ");
+  
+    
+  var query = 'SELECT * from employee' 
+    
+  
+    connection.query(query, function(err, res) {
+      if (err) throw err; 
+  
+      
+      var choices = res.map(employee => employee.first_name + ' ' + employee.last_name +' ' + employee.id); 
+  
+  
+     
+      inquirer
+      .prompt([
+        {
+        name:"name",
+        type: "rawlist",
+        message: "Which employee's role would you like to update?",
+        choices: choices
+      }, 
+      {
+        name:"newRoleId",
+        type: "input",
+        message: "What is the employee's new role id?"
+      }, 
+    ])
+    .then(function(response) {
+      
+      var employeeChoiceArr = response.name.split(' ');
+      
+      var employeeId = employeeChoiceArr[employeeChoiceArr.length-1];
+      
+      var query = "UPDATE employee SET role_id = ? WHERE id = ?" 
+  
+      
+      connection.query(query, [response.newRoleId, employeeId], function(err, res) {
+      if (err) throw err; 
+      console.log(" ");
+      console.log("Employee information has been updated!");
+      console.log(" ");
+      
+      allEmployees();
+      })
+    
+    })
+    
+    
+    })
+    
+  }
     
