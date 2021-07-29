@@ -123,6 +123,18 @@ var connection = mysql.createConnection({
   })
   } 
 
+    
+    function allDepartments() {
+        
+        var query = "SELECT * FROM department"
+      connection.query(query, function(err, res) {
+        if (err) throw err;
+        
+          console.table(res);
+         
+        start(); 
+      })
+      }
 
 
 
